@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-background text-text font-sans;
+  }
+}
+
+@layer components {
+  .enterprise-card {
+    @apply bg-card border border-border rounded-lg p-6 hover:border-primary/50 transition-colors duration-300;
+  }
+  
+  .enterprise-button-primary {
+    @apply bg-primary hover:bg-primary/90 text-background font-bold px-6 py-2 rounded-md transition-colors;
+  }
+  
+  .enterprise-input {
+    @apply bg-secondary border border-border text-text px-4 py-2 rounded-md focus:outline-none focus:border-primary;
+  }
+}
