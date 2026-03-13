@@ -1,6 +1,15 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #86BC25;
+  --color-background: #000000;
+  --color-secondary: #111111;
+  --color-card: #1A1A1A;
+  --color-border: #2A2A2A;
+  --color-text: #FFFFFF;
+  
+  --font-sans: "Inter", "IBM Plex Sans", sans-serif;
+}
 
 @layer base {
   body {
@@ -18,6 +27,6 @@
   }
   
   .enterprise-input {
-    @apply bg-secondary border border-border text-text px-4 py-2 rounded-md focus:outline-none focus:border-primary;
+    @apply bg-secondary border border-border text-text px-4 py-2 rounded-md outline-none focus:border-primary;
   }
 }

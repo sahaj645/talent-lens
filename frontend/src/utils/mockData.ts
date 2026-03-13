@@ -1,4 +1,4 @@
-import { Candidate } from '../types';
+import type { Candidate } from '../types';
 
 export const mockCandidates: Candidate[] = [
   {
@@ -78,7 +78,6 @@ export const mockCandidates: Candidate[] = [
     status: 'Verified',
     lastAnalyzed: '2024-03-05'
   },
-  // Adding more mock candidates for the list
   ...Array.from({ length: 18 }).map((_, i) => ({
     id: (i + 3).toString(),
     name: `Candidate ${i + 3}`,
@@ -89,7 +88,7 @@ export const mockCandidates: Candidate[] = [
     skills: i % 2 === 0 ? ['Node.js', 'Python', 'Docker'] : ['React', 'Tailwind', 'Next.js'],
     matchScore: Math.floor(Math.random() * 40) + 60,
     authenticityScore: Math.floor(Math.random() * 30) + 70,
-    summary: 'A highly motivated developer with a strong focus on building efficient systems.',
+    summary: 'A highly motivated developer with a focus on building efficient systems.',
     githubActivity: {
         commits: Math.floor(Math.random() * 1000),
         repos: Math.floor(Math.random() * 50),
