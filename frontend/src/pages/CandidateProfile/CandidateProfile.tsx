@@ -12,7 +12,6 @@ import {
   Star,
   GitFork,
   Calendar,
-  ChevronRight,
   Cpu,
   ShieldAlert,
   Verified
@@ -49,13 +48,12 @@ const CandidateProfile: React.FC = () => {
     <div className="space-y-8 pb-20">
       <button 
         onClick={() => navigate('/candidates')}
-        className="flex items-center gap-2 text-gray-400 hover:text-primary transition-colors mb-4 group"
+        className="flex items-center gap-2 text-gray-400 hover:text-primary transition-colors mb-4 group cursor-pointer"
       >
         <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
         Back to Results
       </button>
 
-      {/* Header Section */}
       <div className="enterprise-card border-l-4 border-l-primary relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full -mr-32 -mt-32 blur-3xl pointer-events-none" />
         
@@ -67,12 +65,12 @@ const CandidateProfile: React.FC = () => {
           <div className="flex-1 text-center lg:text-left">
             <div className="flex flex-col lg:flex-row lg:items-center gap-3 mb-4">
               <h1 className="text-3xl font-black">{candidate.name}</h1>
-              <span className="px-3 py-1 bg-primary/20 text-primary rounded-full text-xs font-bold border border-primary/20 self-center lg:self-auto">
-                {candidate.status.toUpperCase()}
+              <span className="px-3 py-1 bg-primary/20 text-primary rounded-full text-[10px] font-bold border border-primary/20 self-center lg:self-auto uppercase tracking-wider">
+                {candidate.status}
               </span>
             </div>
             
-            <div className="flex flex-wrap justify-center lg:justify-start gap-6 text-gray-400 mb-6">
+            <div className="flex flex-wrap justify-center lg:justify-start gap-6 text-gray-400 mb-6 font-sans">
               <div className="flex items-center gap-2">
                 <Briefcase size={18} className="text-primary" />
                 <span className="text-sm">{candidate.role}</span>
@@ -91,7 +89,7 @@ const CandidateProfile: React.FC = () => {
               </div>
             </div>
 
-            <p className="text-gray-300 max-w-2xl leading-relaxed">
+            <p className="text-gray-300 max-w-2xl leading-relaxed text-sm font-sans">
               {candidate.summary}
             </p>
           </div>
@@ -115,11 +113,11 @@ const CandidateProfile: React.FC = () => {
                  </PieChart>
                </ResponsiveContainer>
                <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <span className="text-2xl font-black text-primary">{candidate.matchScore}%</span>
+                  <span className="text-2xl font-black text-primary font-sans">{candidate.matchScore}%</span>
                   <span className="text-[8px] text-gray-500 font-bold uppercase tracking-widest">Match Score</span>
                </div>
             </div>
-            <button className="enterprise-button-primary w-full text-xs">
+            <button className="enterprise-button-primary w-full text-[10px] cursor-pointer">
               DOWNLOAD REPORT
             </button>
           </div>
@@ -127,11 +125,10 @@ const CandidateProfile: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Skill Evidence Section */}
         <div className="lg:col-span-2 space-y-8">
           <div className="enterprise-card">
             <div className="flex justify-between items-center mb-8">
-              <h3 className="text-xl font-bold flex items-center gap-2">
+              <h3 className="text-xl font-bold flex items-center gap-2 font-sans">
                 <ShieldCheck size={24} className="text-primary" />
                 Skill Evidence AI Analysis
               </h3>
@@ -139,13 +136,13 @@ const CandidateProfile: React.FC = () => {
             
             <div className="space-y-8">
                <div>
-                  <h4 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Verified Skills</h4>
+                  <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4 italic">Verified Skills</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                      {candidate.skills.map(skill => (
                         <div key={skill} className="p-4 bg-secondary/30 border border-border rounded-lg group hover:border-primary/30 transition-all">
                            <div className="flex justify-between items-center mb-2">
-                              <span className="font-bold">{skill}</span>
-                              <span className="text-xs text-primary font-bold">Strong Evidence</span>
+                              <span className="font-bold text-sm font-sans">{skill}</span>
+                              <span className="text-[10px] text-primary font-bold">Strong Evidence</span>
                            </div>
                            <div className="h-1.5 w-full bg-secondary rounded-full overflow-hidden">
                               <motion.div 
@@ -161,10 +158,10 @@ const CandidateProfile: React.FC = () => {
 
                {candidate.missingSkills && candidate.missingSkills.length > 0 && (
                  <div>
-                    <h4 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Skill Gaps</h4>
+                    <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4 italic">Skill Gaps</h4>
                     <div className="flex flex-wrap gap-3">
                        {candidate.missingSkills.map(skill => (
-                          <div key={skill} className="px-4 py-2 bg-red-500/5 border border-red-500/10 text-red-400 rounded-lg text-sm font-medium flex items-center gap-2">
+                          <div key={skill} className="px-4 py-2 bg-red-500/5 border border-red-500/10 text-red-400 rounded-lg text-xs font-medium flex items-center gap-2">
                              <ShieldAlert size={14} />
                              {skill}
                           </div>
@@ -176,7 +173,7 @@ const CandidateProfile: React.FC = () => {
           </div>
 
           <div className="enterprise-card">
-            <h3 className="text-xl font-bold mb-8 flex items-center gap-2">
+            <h3 className="text-xl font-bold mb-8 flex items-center gap-2 font-sans">
               <Github size={24} className="text-primary" />
               GitHub Activity Engine
             </h3>
@@ -190,7 +187,7 @@ const CandidateProfile: React.FC = () => {
                ].map(stat => (
                  <div key={stat.label} className="p-4 bg-secondary/50 rounded-lg border border-border text-center">
                     <div className="flex justify-center text-primary mb-2">{stat.icon}</div>
-                    <div className="text-2xl font-black">{stat.value}</div>
+                    <div className="text-2xl font-black font-sans">{stat.value}</div>
                     <div className="text-[10px] text-gray-500 font-bold uppercase tracking-tight italic">{stat.label}</div>
                  </div>
                ))}
@@ -206,8 +203,8 @@ const CandidateProfile: React.FC = () => {
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" stroke="#222" vertical={false} />
-                    <XAxis dataKey="month" stroke="#444" fontSize={12} />
-                    <YAxis stroke="#444" fontSize={12} />
+                    <XAxis dataKey="month" stroke="#444" fontSize={10} />
+                    <YAxis stroke="#444" fontSize={10} />
                     <Tooltip 
                        contentStyle={{ backgroundColor: '#111', border: '1px solid #222', borderRadius: '8px' }}
                     />
@@ -218,7 +215,7 @@ const CandidateProfile: React.FC = () => {
           </div>
 
           <div className="enterprise-card">
-             <h3 className="text-xl font-bold mb-8">Career Evidence Timeline</h3>
+             <h3 className="text-xl font-bold mb-8 font-sans">Career Evidence Timeline</h3>
              <div className="space-y-8 relative before:absolute before:inset-0 before:left-[11px] before:w-[2px] before:bg-border">
                 {candidate.experience_timeline.map((item, i) => (
                   <div key={i} className="relative pl-10">
@@ -229,14 +226,14 @@ const CandidateProfile: React.FC = () => {
                      }`} />
                      <div>
                         <div className="flex items-center gap-3 mb-1">
-                           <span className="text-xs font-black text-gray-500">{item.year}</span>
-                           <span className={`px-2 py-0.5 rounded text-[10px] uppercase font-black tracking-widest ${
+                           <span className="text-[10px] font-black text-gray-500">{item.year}</span>
+                           <span className={`px-2 py-0.5 rounded text-[8px] uppercase font-black tracking-widest ${
                              item.type === 'hackathon' ? 'bg-primary/10 text-primary' : 'bg-secondary/80 text-gray-400'
                            }`}>
                              {item.type}
                            </span>
                         </div>
-                        <h4 className="font-bold text-lg">{item.event}</h4>
+                        <h4 className="font-bold text-base font-sans">{item.event}</h4>
                      </div>
                   </div>
                 ))}
@@ -244,16 +241,15 @@ const CandidateProfile: React.FC = () => {
           </div>
         </div>
 
-        {/* Sidebar Info Section */}
         <div className="space-y-8">
            <div className="enterprise-card border-primary/20 bg-primary/[0.02]">
-              <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
+              <h3 className="text-lg font-bold mb-6 flex items-center gap-2 font-sans">
                 <ShieldCheck size={20} className="text-primary" />
                 Authenticity Score
               </h3>
               <div className="flex flex-col items-center mb-8">
-                 <div className="text-6xl font-black text-primary mb-2">{candidate.authenticityScore}%</div>
-                 <div className="px-4 py-1 bg-primary/10 text-primary text-[10px] font-black uppercase tracking-[0.2em] rounded-full">
+                 <div className="text-6xl font-black text-primary mb-2 font-sans">{candidate.authenticityScore}%</div>
+                 <div className="px-4 py-1 bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest rounded-full">
                     HIGHLY AUTHENTIC
                  </div>
               </div>
@@ -262,11 +258,10 @@ const CandidateProfile: React.FC = () => {
                  {[
                    { label: 'Project Originality', score: 98 },
                    { label: 'GitHub Commit Pattern', score: 92 },
-                   { label: 'Code Complexity Match', score: 85 },
-                   { label: 'Contribution Consistency', score: 95 }
+                   { label: 'Code Complexity Match', score: 85 }
                  ].map(metric => (
                    <div key={metric.label}>
-                      <div className="flex justify-between text-xs mb-1.5">
+                      <div className="flex justify-between text-[10px] mb-1.5 font-sans">
                          <span className="text-gray-400">{metric.label}</span>
                          <span className="text-white font-bold">{metric.score}%</span>
                       </div>
@@ -279,48 +274,17 @@ const CandidateProfile: React.FC = () => {
            </div>
 
            <div className="enterprise-card">
-              <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
-                <Code2 size={20} className="text-primary" />
-                AI Insights
+              <h3 className="text-lg font-bold mb-6 flex items-center gap-2 font-sans">
+                <Cpu size={20} className="text-primary" />
+                AI Observations
               </h3>
-              <div className="space-y-4">
+              <div className="space-y-4 font-sans">
                  <div className="p-4 bg-secondary/40 rounded-lg border border-border">
-                    <p className="text-sm text-gray-300 italic mb-2">"This candidate demonstrates strong backend engineering through {candidate.githubActivity.commits} verified commits."</p>
-                    <div className="flex items-center gap-2 text-primary font-bold text-[10px]">
+                    <p className="text-xs text-gray-300 italic mb-2 leading-relaxed">"This candidate demonstrates strong backend engineering through {candidate.githubActivity.commits} verified commits."</p>
+                    <div className="flex items-center gap-2 text-primary font-bold text-[8px] uppercase tracking-tighter">
                        <Verified size={12} /> VERIFIED BY TALENTLENS AI
                     </div>
                  </div>
-                 
-                 <div className="p-4 bg-secondary/40 rounded-lg border border-border">
-                    <p className="text-sm text-gray-300 italic mb-2">"Pattern analysis suggests high proficiency in {candidate.skills[0]} and {candidate.skills[1]} with architectural depth."</p>
-                 </div>
-              </div>
-           </div>
-
-           <div className="enterprise-card">
-              <h3 className="text-lg font-bold mb-6">Recent Projects</h3>
-              <div className="space-y-4">
-                 {candidate.projects.map(project => (
-                   <div key={project.name} className="p-4 border border-border bg-black/40 rounded-lg hover:border-primary/50 transition-colors group cursor-pointer">
-                      <div className="flex justify-between items-start mb-2">
-                         <h4 className="font-bold group-hover:text-primary transition-colors">{project.name}</h4>
-                         <ExternalLink size={14} className="text-gray-500 group-hover:text-primary" />
-                      </div>
-                      <p className="text-xs text-gray-400 mb-4">{project.description}</p>
-                      <div className="flex items-center justify-between">
-                         <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase italic ${
-                           project.complexity === 'High' ? 'text-red-400' : 'text-blue-400'
-                         }`}>
-                           {project.complexity} Complexity
-                         </span>
-                         {project.stars && (
-                           <span className="flex items-center gap-1 text-[10px] text-gray-400">
-                             <Star size={10} className="text-yellow-400" /> {project.stars}
-                           </span>
-                         )}
-                      </div>
-                   </div>
-                 ))}
               </div>
            </div>
         </div>

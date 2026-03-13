@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { 
   RefreshCw, 
   History, 
-  ArrowUpRight, 
-  ChevronRight, 
   Search,
   Filter,
   BrainCircuit,
@@ -12,7 +10,7 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import { mockCandidates } from '../../utils/mockData';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const Rediscovery: React.FC = () => {
   const [isScanning, setIsScanning] = useState(false);
@@ -35,12 +33,12 @@ const Rediscovery: React.FC = () => {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold mb-1">Talent Rediscovery</h1>
-          <p className="text-gray-400">Re-analyze past applicants against new requirements and market growth.</p>
+          <p className="text-gray-400 text-sm">Re-analyze past applicants against new requirements and market growth.</p>
         </div>
         <button 
           onClick={startScan}
           disabled={isScanning}
-          className="enterprise-button-primary flex items-center gap-2 relative overflow-hidden group"
+          className="enterprise-button-primary flex items-center gap-2 relative overflow-hidden group cursor-pointer"
         >
           {isScanning ? (
             <RefreshCw size={18} className="animate-spin" />
@@ -65,10 +63,10 @@ const Rediscovery: React.FC = () => {
                <div className="p-3 bg-purple-500/10 text-purple-400 rounded-lg">
                   <History size={24} />
                </div>
-               <span className="text-xs font-bold text-gray-500 italic">LAST 12 MONTHS</span>
+               <span className="text-[10px] font-bold text-gray-500 italic">LAST 12 MONTHS</span>
             </div>
             <h3 className="text-3xl font-black mb-1">1,240</h3>
-            <p className="text-gray-400 text-sm">Candidates Re-analyzed</p>
+            <p className="text-gray-400 text-sm font-sans">Candidates Re-analyzed</p>
          </div>
          
          <div className="enterprise-card border-l-4 border-l-primary">
@@ -76,21 +74,21 @@ const Rediscovery: React.FC = () => {
                <div className="p-3 bg-primary/10 text-primary rounded-lg">
                   <TrendingUp size={24} />
                </div>
-               <span className="text-xs font-bold text-primary italic">CRITICAL DISCOVERY</span>
+               <span className="text-[10px] font-bold text-primary italic">CRITICAL DISCOVERY</span>
             </div>
             <h3 className="text-3xl font-black mb-1">42</h3>
-            <p className="text-gray-400 text-sm">High-Growth Matches Found</p>
+            <p className="text-gray-400 text-sm font-sans">High-Growth Matches Found</p>
          </div>
 
          <div className="enterprise-card border-l-4 border-l-blue-500">
             <div className="flex justify-between items-start mb-4">
-               <div className="p-3 bg-blue-500/10 text-primary rounded-lg text-blue-400">
+               <div className="p-3 bg-blue-500/10 text-blue-400 rounded-lg">
                   <Clock size={24} />
                </div>
-               <span className="text-xs font-bold text-gray-500 italic">AVG TIME SAVED</span>
+               <span className="text-[10px] font-bold text-gray-500 italic">AVG TIME SAVED</span>
             </div>
             <h3 className="text-3xl font-black mb-1">64 hrs</h3>
-            <p className="text-gray-400 text-sm">Per Hiring Cycle</p>
+            <p className="text-gray-400 text-sm font-sans">Per Hiring Cycle</p>
          </div>
       </div>
 
@@ -103,9 +101,9 @@ const Rediscovery: React.FC = () => {
            <div className="flex gap-3">
               <div className="relative">
                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={16} />
-                 <input className="bg-black border border-border rounded-md py-2 pl-10 pr-4 text-xs w-64" placeholder="Filter by skill or name..." />
+                 <input className="bg-black border border-border rounded-md py-2 pl-10 pr-4 text-xs w-64 outline-none focus:border-primary" placeholder="Filter by skill or name..." />
               </div>
-              <button className="enterprise-input py-0 px-3 flex items-center gap-2">
+              <button className="enterprise-input py-0 px-3 flex items-center gap-2 text-xs cursor-pointer">
                  <Filter size={14} />
                  Sort: Match delta
               </button>
@@ -155,10 +153,10 @@ const Rediscovery: React.FC = () => {
                 </div>
 
                 <div className="flex gap-3">
-                   <button className="px-6 py-2 bg-secondary border border-border text-white text-xs font-bold rounded-md hover:bg-card hover:border-primary transition-all flex items-center gap-2">
+                   <button className="px-6 py-2 bg-secondary border border-border text-white text-xs font-bold rounded-md hover:bg-card hover:border-primary transition-all flex items-center gap-2 cursor-pointer">
                       <RefreshCw size={14} /> RE-SCREEN
                    </button>
-                   <button className="enterprise-button-primary text-xs py-2 px-6 flex items-center gap-2">
+                   <button className="enterprise-button-primary text-xs py-2 px-6 flex items-center gap-2 cursor-pointer">
                       <CheckCircle2 size={14} /> ADD TO PIPELINE
                    </button>
                 </div>

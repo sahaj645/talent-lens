@@ -1,11 +1,24 @@
 import React, { useEffect, useRef } from 'react';
 import ForceGraph2D from 'react-force-graph-2d';
-import { Network, Search, Filter, Info, BrainCircuit } from 'lucide-react';
+import { BrainCircuit, Info, Search, Filter } from 'lucide-react';
+
+interface GraphNode {
+  id: string;
+  group: number;
+  val: number;
+  color?: string;
+  x?: number;
+  y?: number;
+}
+
+interface GraphLink {
+  source: string;
+  target: string;
+}
 
 const SkillGraph: React.FC = () => {
   const graphRef = useRef<any>();
 
-  // Use simple mock data for nodes and links
   const graphData = {
     nodes: [
       { id: 'Candidate: Sarah Chen', group: 1, val: 20 },
@@ -17,7 +30,7 @@ const SkillGraph: React.FC = () => {
       { id: 'Commit: Arch Search 23', group: 5, val: 8 },
       { id: 'Research: CVPR Paper', group: 6, val: 12 },
       { id: 'Skill: PyTorch', group: 2, val: 15 },
-    ],
+    ] as GraphNode[],
     links: [
       { source: 'Candidate: Sarah Chen', target: 'Skill: Machine Learning' },
       { source: 'Candidate: Sarah Chen', target: 'Skill: Python' },
@@ -28,12 +41,12 @@ const SkillGraph: React.FC = () => {
       { source: 'Candidate: Sarah Chen', target: 'Skill: PyTorch' },
       { source: 'Skill: Python', target: 'Project: NeuralArch' },
       { source: 'Skill: TensorFlow', target: 'Project: NeuralArch' },
-    ]
+    ] as GraphLink[]
   };
 
   useEffect(() => {
     if (graphRef.current) {
-        graphRef.current.d3Force('charge').strength(-200);
+      graphRef.current.d3Force('charge').strength(-200);
     }
   }, []);
 
@@ -42,25 +55,21 @@ const SkillGraph: React.FC = () => {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold mb-1">Skill Evidence Graph</h1>
-          <p className="text-gray-400">Interactive visualization of skills linked to verifiable proofs.</p>
+          <p className="text-gray-400 text-sm">Interactive visualization of skills linked to verifiable proofs.</p>
         </div>
         <div className="flex gap-4">
            <div className="enterprise-card py-2 px-4 flex items-center gap-6">
               <div className="flex items-center gap-2">
                  <div className="w-3 h-3 rounded-full bg-blue-500" />
-                 <span className="text-xs font-bold text-gray-400">Candidate</span>
+                 <span className="text-[10px] font-bold text-gray-400">Candidate</span>
               </div>
               <div className="flex items-center gap-2">
                  <div className="w-3 h-3 rounded-full bg-[#86BC25]" />
-                 <span className="text-xs font-bold text-gray-400">Skill</span>
+                 <span className="text-[10px] font-bold text-gray-400">Skill</span>
               </div>
               <div className="flex items-center gap-2">
                  <div className="w-3 h-3 rounded-full bg-orange-500" />
-                 <span className="text-xs font-bold text-gray-400">Project</span>
-              </div>
-              <div className="flex items-center gap-2">
-                 <div className="w-3 h-3 rounded-full bg-purple-500" />
-                 <span className="text-xs font-bold text-gray-400">Research</span>
+                 <span className="text-[10px] font-bold text-gray-400">Project</span>
               </div>
            </div>
         </div>
@@ -69,10 +78,10 @@ const SkillGraph: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 flex-1">
         <div className="lg:col-span-3 enterprise-card p-0 overflow-hidden relative bg-[#050505]">
           <div className="absolute top-6 left-6 z-10 flex gap-2">
-             <button className="bg-black/50 border border-border p-2 rounded hover:text-primary transition-colors">
+             <button className="bg-black/50 border border-border p-2 rounded hover:text-primary transition-colors cursor-pointer">
                  <Search size={18} />
              </button>
-             <button className="bg-black/50 border border-border p-2 rounded hover:text-primary transition-colors">
+             <button className="bg-black/50 border border-border p-2 rounded hover:text-primary transition-colors cursor-pointer">
                  <Filter size={18} />
              </button>
           </div>
@@ -85,27 +94,28 @@ const SkillGraph: React.FC = () => {
             nodeAutoColorBy="group"
             linkColor={() => '#222'}
             linkDirectionalParticles={2}
-            linkDirectionalParticleSpeed={d => 0.005}
-            nodeCanvasObject={(node: any, ctx, globalScale) => {
-              const label = node.id;
+            linkDirectionalParticleSpeed={() => 0.005}
+            nodeCanvasObject={(node, ctx, globalScale) => {
+              const n = node as GraphNode;
+              const label = n.id;
               const fontSize = 12 / globalScale;
               ctx.font = `${fontSize}px Inter`;
               const textWidth = ctx.measureText(label).width;
-              const bckgDimensions = [textWidth, fontSize].map(n => n + fontSize * 0.2);
+              const bckgDimensions = [textWidth, fontSize].map(val => val + fontSize * 0.2);
 
               ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
-              ctx.fillRect(node.x - bckgDimensions[0] / 2, node.y - bckgDimensions[1] / 2, bckgDimensions[0], bckgDimensions[1]);
-
-              ctx.textAlign = 'center';
-              ctx.textBaseline = 'middle';
-              ctx.fillStyle = node.color || '#86BC25';
-              ctx.fillText(label, node.x, node.y);
-              
-              // Draw node circle
-              ctx.beginPath();
-              ctx.arc(node.x, node.y, 4, 0, 2 * Math.PI, false);
-              ctx.fillStyle = node.color || '#86BC25';
-              ctx.fill();
+              if (n.x !== undefined && n.y !== undefined) {
+                ctx.fillRect(n.x - bckgDimensions[0] / 2, n.y - bckgDimensions[1] / 2, bckgDimensions[0], bckgDimensions[1]);
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillStyle = n.color || '#86BC25';
+                ctx.fillText(label, n.x, n.y);
+                
+                ctx.beginPath();
+                ctx.arc(n.x, n.y, 4, 0, 2 * Math.PI, false);
+                ctx.fillStyle = n.color || '#86BC25';
+                ctx.fill();
+              }
             }}
           />
         </div>
@@ -136,11 +146,10 @@ const SkillGraph: React.FC = () => {
                     <div className="flex flex-wrap gap-2 mt-2">
                        <span className="px-2 py-1 bg-secondary rounded text-[10px] font-bold">Python</span>
                        <span className="px-2 py-1 bg-secondary rounded text-[10px] font-bold">Machine Learning</span>
-                       <span className="px-2 py-1 bg-secondary rounded text-[10px] font-bold">TensorFlow</span>
                     </div>
                  </div>
                  <div className="pt-4 border-t border-border">
-                    <button className="w-full enterprise-button-primary text-xs">
+                    <button className="w-full enterprise-button-primary text-xs cursor-pointer">
                        EXPLORE REPOSITORY
                     </button>
                  </div>

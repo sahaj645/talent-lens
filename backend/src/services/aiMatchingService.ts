@@ -1,19 +1,20 @@
-import { Request, Response } from 'express';
+import { Candidate } from '../types';
 
-// Placeholder for future AI model integration
-export const analyzeResume = async (req: Request, res: Response) => {
-  try {
-    const { resumeUrl } = req.body;
-    // Mock processing
-    setTimeout(() => {
-      res.status(200).json({
-        message: 'Resume analyzed successfully',
-        skills: ['Python', 'React', 'AWS'],
-        score: 85,
-        authenticity: 92
-      });
-    }, 2000);
-  } catch (error) {
-    res.status(500).json({ error: 'Manual processing failed' });
-  }
+export const calculateMatchScore = (candidate: Candidate, requirements: string[]) => {
+  // Simple matching logic placeholder
+  const matchingSkills = candidate.skills.filter(skill => 
+    requirements.some(req => skill.toLowerCase().includes(req.toLowerCase()))
+  );
+  
+  const baseScore = (matchingSkills.length / requirements.length) * 100;
+  return Math.min(100, Math.round(baseScore + (candidate.experience * 2)));
+};
+
+export const getHiringInsights = () => {
+  return [
+    { text: "32% candidates exaggerate skills based on GitHub activity", type: "warning" },
+    { text: "18 strong ML candidates discovered in last 48 hours", type: "success" },
+    { text: "9 suspicious GitHub activity patterns flagged", type: "alert" },
+    { text: "12 rediscovered candidates from old database match open roles", type: "info" }
+  ];
 };

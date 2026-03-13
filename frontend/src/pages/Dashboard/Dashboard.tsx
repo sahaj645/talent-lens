@@ -5,9 +5,9 @@ import {
   AlertTriangle, 
   Target, 
   RefreshCcw,
-  ArrowUpRight,
   TrendingUp,
-  BrainCircuit
+  BrainCircuit,
+  ChevronRight
 } from 'lucide-react';
 import { 
   BarChart, 
@@ -16,17 +16,14 @@ import {
   YAxis, 
   CartesianGrid, 
   Tooltip, 
-  ResponsiveContainer,
-  AreaChart,
-  Area
+  ResponsiveContainer
 } from 'recharts';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const StatCard: React.FC<{ title: string, value: string, icon: React.ReactNode, delta?: string, color: string }> = ({ title, value, icon, delta, color }) => {
   const [displayValue, setDisplayValue] = useState("0");
   
   useEffect(() => {
-    // Simple counter animation
     const target = parseInt(value.replace(/[^0-9]/g, ''));
     if (isNaN(target)) {
       setDisplayValue(value);
@@ -62,8 +59,8 @@ const StatCard: React.FC<{ title: string, value: string, icon: React.ReactNode, 
         )}
       </div>
       <div>
-        <p className="text-gray-400 text-sm mb-1">{title}</p>
-        <h3 className="text-3xl font-bold">{displayValue}</h3>
+        <p className="text-gray-400 text-sm mb-1 font-sans">{title}</p>
+        <h3 className="text-3xl font-bold font-sans">{displayValue}</h3>
       </div>
       <div className="mt-4 flex items-center gap-2">
         <div className="flex -space-x-2">
@@ -110,11 +107,11 @@ const Dashboard: React.FC = () => {
           <p className="text-gray-400">Welcome back, here's what's happening across your candidate pipeline.</p>
         </div>
         <div className="flex gap-4">
-          <button className="enterprise-input flex items-center gap-2 hover:border-gray-500">
+          <button className="enterprise-input flex items-center gap-2 hover:border-gray-500 cursor-pointer">
             <span>Last 30 Days</span>
             <ChevronRight size={14} className="rotate-90" />
           </button>
-          <button className="enterprise-button-primary flex items-center gap-2 shadow-[0_0_20px_rgba(134,188,37,0.3)]">
+          <button className="enterprise-button-primary flex items-center gap-2 shadow-[0_0_20px_rgba(134,188,37,0.3)] cursor-pointer">
             <RefreshCcw size={18} />
             Run Re-analysis
           </button>
@@ -130,18 +127,12 @@ const Dashboard: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Main Chart */}
         <div className="lg:col-span-2 enterprise-card">
           <div className="flex justify-between items-center mb-8">
-            <h3 className="text-lg font-bold flex items-center gap-2">
+            <h3 className="text-lg font-bold flex items-center gap-2 font-sans">
               <TrendingUp size={20} className="text-primary" />
               Skill Demand Trend
             </h3>
-            <div className="flex gap-2">
-              <span className="flex items-center gap-1 text-xs text-gray-400">
-                <div className="w-2 h-2 rounded-full bg-primary" /> Demand
-              </span>
-            </div>
           </div>
           <div className="h-[350px] w-full">
             <ResponsiveContainer width="100%" height="100%">
@@ -159,9 +150,8 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
 
-        {/* AI Insights Panel */}
         <div className="enterprise-card border-primary/20 bg-primary/[0.02]">
-          <h3 className="text-lg font-bold flex items-center gap-2 mb-6">
+          <h3 className="text-lg font-bold flex items-center gap-2 mb-6 font-sans">
             <BrainCircuit size={22} className="text-primary" />
             AI Hiring Insights
           </h3>
@@ -185,15 +175,15 @@ const Dashboard: React.FC = () => {
               </motion.div>
             ))}
           </div>
-          <button className="w-full mt-6 py-3 text-xs font-bold text-primary bg-primary/5 rounded-md hover:bg-primary/10 transition-colors border border-primary/10">
+          <button className="w-full mt-6 py-3 text-xs font-bold text-primary bg-primary/5 rounded-md hover:bg-primary/10 transition-colors border border-primary/10 cursor-pointer">
             VIEW ALL AI REPORTS
           </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 font-sans">
          <div className="enterprise-card">
-            <h3 className="text-lg font-bold mb-8">Hiring Pipeline Funnel</h3>
+            <h3 className="text-lg font-bold mb-8 font-sans">Hiring Pipeline Funnel</h3>
             <div className="space-y-6">
               {pipelineData.map((item, i) => (
                 <div key={item.name} className="relative">
@@ -219,15 +209,15 @@ const Dashboard: React.FC = () => {
             <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-6 animate-pulse">
                <BrainCircuit size={32} />
             </div>
-            <h3 className="text-xl font-bold mb-3">Enterprise AI Integration</h3>
-            <p className="text-gray-400 max-w-sm mb-8">
+            <h3 className="text-xl font-bold mb-3 font-sans">Enterprise AI Integration</h3>
+            <p className="text-gray-400 max-w-sm mb-8 text-sm">
               Connect your ATS, LinkedIn Recruiter, and GitHub Enterprise to unlock cross-platform intelligence.
             </p>
             <div className="flex gap-4">
-              <button className="bg-secondary text-white px-6 py-2 rounded-md font-bold text-sm border border-border hover:bg-card">
+              <button className="bg-secondary text-white px-6 py-2 rounded-md font-bold text-sm border border-border hover:bg-card cursor-pointer transition-colors">
                 CONNECT REPO
               </button>
-              <button className="enterprise-button-primary text-sm">
+              <button className="enterprise-button-primary text-sm cursor-pointer">
                 CONFIGURE AI
               </button>
             </div>
